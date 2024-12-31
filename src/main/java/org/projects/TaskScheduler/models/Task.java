@@ -4,7 +4,6 @@ package org.projects.TaskScheduler.models;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
 public class Task {
     private UUID taskId;
     private String taskName;
