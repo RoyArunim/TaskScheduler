@@ -22,7 +22,7 @@ public class EmailController {
 
     @PostMapping("/send/{taskId}")
     public ResponseEntity<String> sendMail(@PathVariable String taskId) throws Exception {
-        emailService.sendReminder(taskService.getTask(UUID.fromString(taskId)));
+        emailService.sendReminder(taskService.getTask(taskId));
         return ResponseEntity.ok("Reminders sent successfully");
     }
 

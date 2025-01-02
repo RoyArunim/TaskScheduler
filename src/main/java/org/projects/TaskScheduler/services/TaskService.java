@@ -13,12 +13,19 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public void createOrUpdateTask(Task task){
-        task.setTaskId(UUID.randomUUID());
-        taskRepository.save(task);
+    public Task createTask(Task task){
+        return taskRepository.saveTask(task);
     }
 
-    public Task getTask(UUID taskId) throws Exception {
-       return taskRepository.findById(taskId).orElseThrow(()->new Exception("This task is invalid"));
+    public Task getTask(String taskId) throws Exception {
+        return taskRepository.getTaskById(taskId);
+    }
+
+    public String deleteTaskById(String taskId){
+        return taskRepository.delete(taskId);
+    }
+
+    public String updateTask(Task task, String taskId){
+        return taskRepository.update(task, taskId);
     }
 }

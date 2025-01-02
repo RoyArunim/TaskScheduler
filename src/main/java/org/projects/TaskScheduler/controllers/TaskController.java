@@ -19,8 +19,7 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public ResponseEntity<TaskDto> createTask(@RequestBody Task task){
-        taskService.createOrUpdateTask(task);
-        TaskDto taskDto =taskMapper(task);
+        TaskDto taskDto =taskMapper(taskService.createTask(task));
         return ResponseEntity.ok(taskDto);
     }
 
@@ -28,7 +27,7 @@ public class TaskController {
         TaskDto dto = new TaskDto();
         dto.setTaskId(task.getTaskId());
         dto.setTaskName(task.getTaskName());
-        dto.setCompleted(task.getCompleted());
+        dto.setCompleted(task.getIsCompleted());
         dto.setDescription(task.getDescription());
         dto.setScheduleTime(task.getScheduleTime());
         return dto;
