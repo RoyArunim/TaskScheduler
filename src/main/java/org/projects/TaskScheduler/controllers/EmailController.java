@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1")
 public class EmailController {
 
     @Autowired

@@ -22,6 +22,7 @@ public class TaskRepository {
     }
 
     public Task getTaskById(String taskId){
+        System.out.println("Task ID: " + taskId + ", Type: " + taskId.getClass().getSimpleName());
         return dynamoDBMapper.load(Task.class, taskId);
     }
 

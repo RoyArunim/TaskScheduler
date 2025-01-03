@@ -10,6 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamoDBTable(tableName = "task")
+@Getter
+@Setter
 public class Task {
 
     @DynamoDBHashKey
@@ -23,7 +25,7 @@ public class Task {
     private String description;
 
     @DynamoDBAttribute
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S) //have to handle LocalDateTime differently to let dynamodb understand the format
     private LocalDateTime scheduleTime;
 
     @DynamoDBAttribute
@@ -31,32 +33,6 @@ public class Task {
 
     @DynamoDBAttribute
     private List<String> emails;
-
-    public String getTaskId(){
-        return taskId;
-    }
-
-    public String getTaskName(){
-        return taskName;
-    }
-
-    public Boolean getIsCompleted(){
-        return completed;
-    }
-
-    public String getDescription(){
-        return description;
-    }
-
-    public LocalDateTime getScheduleTime(){
-        return scheduleTime;
-    }
-
-    public List<String> getEmails(){
-        return emails;
-    }
-
-
 
 
 }
