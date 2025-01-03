@@ -35,7 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
-aws.secretKey
-aws.accessKey
-aws.region
-aws.serviceEndpoint
+src/main/resources/application.properties
