@@ -1,6 +1,7 @@
 package org.projects.TaskScheduler.controllers;
 
 import jakarta.mail.MessagingException;
+import org.projects.TaskScheduler.models.EmailNotification;
 import org.projects.TaskScheduler.models.Task;
 import org.projects.TaskScheduler.services.EmailService;
 import org.projects.TaskScheduler.services.TaskService;
@@ -19,9 +20,9 @@ public class EmailController {
     @Autowired
     TaskService taskService;
 
-    @PostMapping("/send/{taskId}")
-    public ResponseEntity<String> sendMail(@PathVariable String taskId) throws Exception {
-        emailService.sendReminder(taskService.getTask(taskId));
+    @PostMapping("/send")
+    public ResponseEntity<String> sendMail(@RequestBody EmailNotification notification) throws Exception {
+        emailService.sendReminder(notification);
         return ResponseEntity.ok("Reminders sent successfully");
     }
 

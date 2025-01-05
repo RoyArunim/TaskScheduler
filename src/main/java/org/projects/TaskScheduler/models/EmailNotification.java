@@ -15,4 +15,5 @@ import java.util.List;
 public class EmailNotification {
     private String subject;
     private String body;
+    List<String> recipients;
 }

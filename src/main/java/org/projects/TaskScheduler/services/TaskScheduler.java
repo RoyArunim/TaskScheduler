@@ -1,11 +1,13 @@
 package org.projects.TaskScheduler.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.projects.TaskScheduler.models.EmailNotification;
 import org.projects.TaskScheduler.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -25,13 +27,37 @@ public class TaskScheduler {
 
         for(Task task:scheduledTasks){
         if(!task.isCompleted() && !task.getEmails().isEmpty()){
-            sendTaskNotification();
+            sendTaskNotification(task);
         }
         }
     }
 
-    public void sendTaskNotification(){
+    public void sendTaskNotification(Task task){
+        EmailNotification notification = EmailNotification.builder()
+                        .subject("Task Reminder for: "+ task.getTaskName())
+                        .body(buildEmail(task))
+                .recipients(task.getEmails())
+                .build();
+        emailService.sendReminder(notification);
+    }
 
+    public String buildEmail(Task task){
+        return String.format("""
+            Hello,
+            
+            This is a reminder for the following task:
+            
+            Task: %s
+            Description: %s
+            Scheduled Time: %s
+            
+            Best regards,
+            Task Scheduler
+            """,
+                task.getTaskName(),
+                task.getDescription(),
+                task.getScheduleTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        );
     }
 
 
