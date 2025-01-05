@@ -2,6 +2,7 @@ package org.projects.TaskScheduler.services;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.projects.TaskScheduler.models.EmailNotification;
 import org.projects.TaskScheduler.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -5,6 +5,8 @@ import org.projects.TaskScheduler.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,5 +29,9 @@ public class TaskService {
 
     public String updateTask(Task task, String taskId){
         return taskRepository.update(task, taskId);
+    }
+
+    public List<Task> findTasksDueForNotification(LocalDateTime currentTime){
+        return taskRepository.findTasksDueforNotification(currentTime);
     }
 }

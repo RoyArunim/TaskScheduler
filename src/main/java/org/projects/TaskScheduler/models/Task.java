@@ -3,6 +3,7 @@ package org.projects.TaskScheduler.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.*;
+import org.projects.TaskScheduler.config.LocalDateTimeConverter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,8 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamoDBTable(tableName = "task")
-@Getter
-@Setter
 public class Task {
 
     @DynamoDBHashKey
@@ -25,8 +24,12 @@ public class Task {
     private String description;
 
     @DynamoDBAttribute
-    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S) //have to handle LocalDateTime differently to let dynamodb understand the format
+    @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)
     private LocalDateTime scheduleTime;
+
+    @DynamoDBAttribute
+    @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)
+    private LocalDateTime createdAt;
 
     @DynamoDBAttribute
     private boolean completed;

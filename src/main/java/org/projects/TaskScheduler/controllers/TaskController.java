@@ -17,13 +17,20 @@ public class TaskController {
     TaskRepository taskRepository;
 
     @PostMapping("/createTask")
-    public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
+    public ResponseEntity<TaskDto> createTask(@RequestBody Task task){
+        TaskDto taskDto = taskMapper(taskService.createTask(task));
+        return ResponseEntity.ok(taskDto);
     }
 
     @GetMapping("/getTask/{id}")
-    public Task getTask(@PathVariable("id") String taskId) {
-        return taskRepository.getTaskById(taskId);
+    public ResponseEntity<TaskDto> getTask(@PathVariable("id") String taskId) {
+        TaskDto taskDto = taskMapper(taskRepository.getTaskById(taskId));
+        return ResponseEntity.ok(taskDto);
+    }
+
+    @PostMapping("/addUser/{id}")
+    public String addUserEmail(@PathVariable("id") String taskId, @RequestBody String emailId){
+        return taskRepository.addUserEmail(taskId, emailId);
     }
 
     private TaskDto taskMapper(Task task){
